@@ -1,8 +1,6 @@
-# RubyXL::Addressing
+# rubyXL-addressing
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rubyXL/addressing`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Addressing for [rubyXL](https://github.com/weshatheleopard/rubyXL)
 
 ## Installation
 
@@ -22,7 +20,52 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### calculate C3 + F3
+
+#### rubyXL
+
+```ruby
+row_index, column_index_c = RubyXL::Reference.ref2ind('C3')
+_,         column_index_f = RubyXL::Reference.ref2ind('F3')
+row = worksheet[row_index]
+if row
+  cell_c = row[column_index_c]
+  cell_f = row[column_index_f]
+  if cell_c && cell_f
+    cell_c.value + cell_f.value
+  end
+end
+```
+
+#### rubyXL-addressing
+
+```ruby
+c3 = worksheet.addr(:C3)
+f3 = c3.column(:F)          # or c3.right(3)
+if c3.cell && f3.cell       # or c3.exists?
+  c3.value + f3.value
+end
+```
+
+### set value to C3
+
+#### rubyXL
+
+```ruby
+row_index, column_index = RubyXL::Reference.ref2ind('C3')
+row = worksheet[row_index]
+if row && row[column_index]
+  row[column_index].change_contents('foobar')
+else
+  worksheet.add_cell(row_index, column_index, 'foobar')
+end
+```
+
+#### rubyXL-addressing
+
+```ruby
+worksheet.addr('C3').value = 'foobar'
+```
 
 ## Development
 
@@ -34,8 +77,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rubyXL-addressing. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
-
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-

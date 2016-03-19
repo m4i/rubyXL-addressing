@@ -1,0 +1,80 @@
+AllCops:
+  Include:
+    - "*.gemspec"
+    - Appraisals
+    - Gemfile
+    - Rakefile
+  TargetRubyVersion: 2.1
+
+Metrics/AbcSize:
+  Exclude:
+    - test/**/*_test.rb
+
+Metrics/ClassLength:
+  Exclude:
+    - lib/rubyXL/address.rb
+    - test/**/*_test.rb
+
+Metrics/LineLength:
+  Exclude:
+    - "*.gemspec"
+
+Metrics/MethodLength:
+  Exclude:
+    - test/**/*_test.rb
+
+Style/ClassVars:
+  Exclude:
+    - test/**/*_test.rb
+
+Style/Documentation:
+  Enabled: false
+
+# does not consider `frozen_string_literal: true`
+Style/MutableConstant:
+  Exclude:
+    - lib/rubyXL/addressing/version.rb
+
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+
+### disabled.yml
+
+Style/AutoResourceCleanup:
+  Enabled: true
+
+Style/CollectionMethods:
+  Enabled: true
+
+Style/FirstArrayElementLineBreak:
+  Enabled: true
+
+Style/FirstHashElementLineBreak:
+  Enabled: true
+
+Style/MultilineArrayBraceLayout:
+  Enabled: true
+
+Style/MultilineAssignmentLayout:
+  Enabled: true
+
+Style/MultilineHashBraceLayout:
+  Enabled: true
+
+Style/MultilineMethodCallBraceLayout:
+  Enabled: true
+
+Style/MultilineMethodDefinitionBraceLayout:
+  Enabled: true
+
+Style/OptionHash:
+  Enabled: true
+
+Style/Send:
+  Enabled: true
+
+Style/StringMethods:
+  Enabled: true
+
+Style/SymbolArray:
+  Enabled: true
