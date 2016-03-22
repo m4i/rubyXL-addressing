@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 %w(
   2.1.1
   2.5.7
