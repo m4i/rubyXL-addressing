@@ -51,27 +51,13 @@ module RubyXL
     # @param [Integer, String, Symbol] row
     # @return [Integer, String, Symbol]
     def row=(row)
-      case row
-      when Integer
-        return @row = row if row >= 0
-      when String, Symbol
-        return self.row = Addressing.row_ref2ind(row)
-      end
-
-      raise ArgumentError, "invalid row #{row.inspect}"
+      @row = Addressing.__send__(:normalize, 'row', row)
     end
 
     # @param [Integer, String, Symbol] column
     # @return [Integer, String, Symbol]
     def column=(column)
-      case column
-      when Integer
-        return @column = column if column >= 0
-      when String, Symbol
-        return self.column = Addressing.column_ref2ind(column)
-      end
-
-      raise ArgumentError, "invalid column #{column.inspect}"
+      @column = Addressing.__send__(:normalize, 'column', column)
     end
 
     # @return [String]

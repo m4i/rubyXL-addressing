@@ -14,9 +14,7 @@ module RubyXL
       # @param [Integer] ind
       # @return [String]
       def row_ind2ref(ind)
-        message = "invalid row #{ind.inspect}"
-        raise TypeError,     message unless ind.is_a?(Integer)
-        raise ArgumentError, message unless ind >= 0
+        validate_index('row', ind)
 
         (ind + 1).to_s.freeze
       end
@@ -24,15 +22,13 @@ module RubyXL
       # @param [Integer] ind
       # @return [String]
       def column_ind2ref(ind)
-        message = "invalid column #{ind.inspect}"
-        raise TypeError,     message unless ind.is_a?(Integer)
-        raise ArgumentError, message unless ind >= 0
+        validate_index('column', ind)
 
         ref = ''.dup
         loop do
           ref.prepend((ind % 26 + 65).chr)
-          ind /= 26
-          break if (ind -= 1) < 0
+          ind = ind / 26 - 1
+          break if ind < 0
         end
         ref.freeze
       end
@@ -53,6 +49,24 @@ module RubyXL
         raise ArgumentError, message unless COLUMN_REF_FORMAT =~ ref
 
         ref.to_s.each_byte.reduce(0) { |a, e| a * 26 + (e - 64) } - 1
+      end
+
+      private
+
+      def normalize(row_or_column, value)
+        case value
+        when String, Symbol
+          value = public_send("#{row_or_column}_ref2ind", value)
+        else
+          validate_index(row_or_column, value)
+        end
+        value
+      end
+
+      def validate_index(row_or_column, index)
+        message = "invalid #{row_or_column} #{index.inspect}"
+        raise TypeError,     message unless index.is_a?(Integer)
+        raise ArgumentError, message unless index >= 0
       end
     end
 
