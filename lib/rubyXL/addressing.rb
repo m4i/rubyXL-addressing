@@ -85,5 +85,5 @@ module RubyXL
     end
   end
 
-  Worksheet.prepend(Addressing)
+  Worksheet.include(Addressing)
 end
