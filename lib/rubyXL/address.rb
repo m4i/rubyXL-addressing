@@ -51,13 +51,13 @@ module RubyXL
     # @param [Integer, String, Symbol] row
     # @return [Integer, String, Symbol]
     def row=(row)
-      @row = Addressing.__send__(:normalize, 'row', row)
+      @row = Addressing.__send__(:normalize, :row, row)
     end
 
     # @param [Integer, String, Symbol] column
     # @return [Integer, String, Symbol]
     def column=(column)
-      @column = Addressing.__send__(:normalize, 'column', column)
+      @column = Addressing.__send__(:normalize, :column, column)
     end
 
     # @return [String]

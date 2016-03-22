@@ -14,7 +14,7 @@ module RubyXL
       # @param [Integer] ind
       # @return [String]
       def row_ind2ref(ind)
-        validate_index('row', ind)
+        validate_index(:row, ind)
 
         (ind + 1).to_s.freeze
       end
@@ -22,7 +22,7 @@ module RubyXL
       # @param [Integer] ind
       # @return [String]
       def column_ind2ref(ind)
-        validate_index('column', ind)
+        validate_index(:column, ind)
 
         ref = ''.dup
         loop do
