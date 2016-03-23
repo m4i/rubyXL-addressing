@@ -127,11 +127,6 @@ module RubyXL
       (row = @worksheet[@row]) && row[@column]
     end
 
-    # @return [Boolean]
-    def exists?
-      !cell.nil?
-    end
-
     # @return [Object]
     def value
       cell && cell.value

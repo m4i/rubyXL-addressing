@@ -48,7 +48,7 @@ end
 ```ruby
 c3 = worksheet.addr(:C3)
 f3 = c3.column(:F)          # or c3.right(3)
-if c3.cell && f3.cell       # or c3.exists?
+if c3.cell && f3.cell
   c3.value + f3.value
 end
 ```

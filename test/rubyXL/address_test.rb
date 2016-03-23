@@ -277,13 +277,6 @@ class RubyXL::AddressTest < Minitest::Test
     assert_same @@worksheet[addr.row][addr.column], addr.cell
   end
 
-  def test_exists?
-    addr = RubyXL::Address.new(@@worksheet, ref: :B8)
-    assert_equal false, addr.exists?
-    @@worksheet.add_cell(addr.row, addr.column)
-    assert_equal true, addr.exists?
-  end
-
   def test_value
     addr = RubyXL::Address.new(@@worksheet, ref: :C7)
     assert_nil addr.value
