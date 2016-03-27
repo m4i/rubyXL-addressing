@@ -3,9 +3,6 @@
 require 'test_helper'
 
 class RubyXL::AddressTest < Minitest::Test
-  @@workbook  = RubyXL::Workbook.new
-  @@worksheet = @@workbook[0]
-
   def test_worksheet
     worksheet1 = 'dummy1'
     worksheet2 = 'dummy2'
@@ -93,7 +90,7 @@ class RubyXL::AddressTest < Minitest::Test
   end
 
   def test_inspect
-    worksheet = @@workbook.add_worksheet('TEST')
+    worksheet = workbook.add_worksheet('TEST')
     assert_equal '#<RubyXL::Address TEST!A1>',
                  RubyXL::Address.new(worksheet, ref: :A1).inspect
   end
@@ -271,29 +268,43 @@ class RubyXL::AddressTest < Minitest::Test
   end
 
   def test_cell
-    addr = RubyXL::Address.new(@@worksheet, ref: :A9)
+    addr = RubyXL::Address.new(worksheet, ref: :A9)
     assert_nil addr.cell
-    @@worksheet.add_cell(addr.row, addr.column)
-    assert_same @@worksheet[addr.row][addr.column], addr.cell
+    worksheet.add_cell(addr.row, addr.column)
+    assert_same worksheet[addr.row][addr.column], addr.cell
   end
 
   def test_value
-    addr = RubyXL::Address.new(@@worksheet, ref: :C7)
+    addr = RubyXL::Address.new(worksheet, ref: :C7)
     assert_nil addr.value
-    @@worksheet.add_cell(addr.row, addr.column, 'foobar')
-    assert_same @@worksheet[addr.row][addr.column].value, addr.value
+    worksheet.add_cell(addr.row, addr.column, 'foobar')
+    assert_same worksheet[addr.row][addr.column].value, addr.value
   end
 
   def test_value_setter
-    addr = RubyXL::Address.new(@@worksheet, ref: :D6)
+    addr = RubyXL::Address.new(worksheet, ref: :D6)
     assert_nil addr.cell
 
     value = 'foo'
     addr.value = value
-    assert_same value, @@worksheet[addr.row][addr.column].value
+    assert_same value, worksheet[addr.row][addr.column].value
 
     value = 'baz'
     addr.value = value
-    assert_same value, @@worksheet[addr.row][addr.column].value
+    assert_same value, worksheet[addr.row][addr.column].value
+  end
+
+  private
+
+  def workbook
+    @@workbook ||=
+      begin
+        require 'rubyXL'
+        RubyXL::Workbook.new
+      end
+  end
+
+  def worksheet
+    @@worksheet ||= workbook[0]
   end
 end
