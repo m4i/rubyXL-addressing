@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rubyXL/objects/reference'
+
 module RubyXL
   class Address
     # @param [RubyXL::Worksheet] worksheet
@@ -13,7 +15,7 @@ module RubyXL
     def initialize(worksheet, ref: nil, row: nil, column: nil)
       @worksheet = worksheet
 
-      row, column = Reference.ref2ind(ref) if ref
+      row, column = RubyXL::Reference.ref2ind(ref) if ref
       self.row    = row
       self.column = column
     end
@@ -62,7 +64,7 @@ module RubyXL
 
     # @return [String]
     def ref
-      Reference.ind2ref(@row, @column)
+      RubyXL::Reference.ind2ref(@row, @column)
     end
 
     # @return [String]

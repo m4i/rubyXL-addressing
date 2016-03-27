@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rubyXL/addressing/version'
-require 'rubyXL'
 
 module RubyXL
   autoload :Address, 'rubyXL/address'
@@ -78,12 +77,13 @@ module RubyXL
     # @return [RubyXL::Address]
     def addr(ref_or_row, column = nil)
       if column.nil?
-        Address.new(self, ref: ref_or_row)
+        RubyXL::Address.new(self, ref: ref_or_row)
       else
-        Address.new(self, row: ref_or_row, column: column)
+        RubyXL::Address.new(self, row: ref_or_row, column: column)
       end
     end
   end
-
-  Worksheet.include(Addressing)
 end
+
+require 'rubyXL'
+RubyXL::Worksheet.include(RubyXL::Addressing)
