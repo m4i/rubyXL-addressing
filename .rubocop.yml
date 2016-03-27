@@ -12,6 +12,7 @@ Metrics/AbcSize:
 
 Metrics/ClassLength:
   Exclude:
+    - lib/rubyXL/address.rb
     - test/**/*_test.rb
 
 Metrics/LineLength:

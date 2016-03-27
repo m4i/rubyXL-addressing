@@ -4,6 +4,69 @@ require 'rubyXL/objects/reference'
 
 module RubyXL
   class Address
+    ROW_REF_FORMAT    = /\A[1-9]\d*\z/
+    COLUMN_REF_FORMAT = /\A[A-Z]+\z/
+
+    class << self
+      # @param [Integer] ind
+      # @return [String]
+      def row_ind2ref(ind)
+        validate_index(:row, ind)
+
+        (ind + 1).to_s.freeze
+      end
+
+      # @param [Integer] ind
+      # @return [String]
+      def column_ind2ref(ind)
+        validate_index(:column, ind)
+
+        ref = ''.dup
+        loop do
+          ref.prepend((ind % 26 + 65).chr)
+          ind = ind / 26 - 1
+          break if ind < 0
+        end
+        ref.freeze
+      end
+
+      # @param [String, Symbol] ref
+      # @return [Integer]
+      def row_ref2ind(ref)
+        message = "invalid row #{ref.inspect}"
+        raise ArgumentError, message unless ROW_REF_FORMAT =~ ref
+
+        ref.to_s.to_i - 1
+      end
+
+      # @param [String, Symbol] ref
+      # @return [Integer]
+      def column_ref2ind(ref)
+        message = "invalid column #{ref.inspect}"
+        raise ArgumentError, message unless COLUMN_REF_FORMAT =~ ref
+
+        ref.to_s.each_byte.reduce(0) { |a, e| a * 26 + (e - 64) } - 1
+      end
+
+      private
+
+      def normalize(row_or_column, value)
+        case value
+        when String, Symbol
+          value = public_send("#{row_or_column}_ref2ind", value)
+        else
+          validate_index(row_or_column, value)
+        end
+        value
+      end
+
+      def validate_index(row_or_column, index)
+        message = "invalid #{row_or_column} #{index.inspect}"
+        raise TypeError,     message unless index.is_a?(Integer)
+        raise ArgumentError, message unless index >= 0
+      end
+    end
+
     # @param [RubyXL::Worksheet] worksheet
     # @return [RubyXL::Worksheet]
     attr_writer :worksheet
@@ -53,13 +116,13 @@ module RubyXL
     # @param [Integer, String, Symbol] row
     # @return [Integer, String, Symbol]
     def row=(row)
-      @row = Addressing.__send__(:normalize, :row, row)
+      @row = self.class.__send__(:normalize, :row, row)
     end
 
     # @param [Integer, String, Symbol] column
     # @return [Integer, String, Symbol]
     def column=(column)
-      @column = Addressing.__send__(:normalize, :column, column)
+      @column = self.class.__send__(:normalize, :column, column)
     end
 
     # @return [String]
