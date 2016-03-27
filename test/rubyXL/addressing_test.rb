@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'rubyXL/addressing'
 
 class RubyXL::AddressingTest < Minitest::Test
   include RubyXL::Addressing
