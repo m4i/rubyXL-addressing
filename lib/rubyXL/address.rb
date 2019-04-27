@@ -200,11 +200,8 @@ module RubyXL
     # @param [Object] value
     # @return [Object]
     def value=(value)
-      if cell
-        cell.change_contents(value)
-      else
-        @worksheet.add_cell(@row, @column, value)
-      end
+      @worksheet.add_cell(@row, @column) unless cell
+      cell.change_contents(value)
     end
   end
 end

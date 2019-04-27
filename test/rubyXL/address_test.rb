@@ -293,6 +293,13 @@ class RubyXL::AddressTest < Minitest::Test
     value = 'baz'
     addr.value = value
     assert_same value, worksheet[addr.row][addr.column].value
+
+    addr = RubyXL::Address.new(worksheet, ref: :E5)
+    assert_nil addr.cell
+
+    value = true
+    addr.value = value
+    assert_same value, worksheet[addr.row][addr.column].value
   end
 
   private

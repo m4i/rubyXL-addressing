@@ -4,4 +4,4 @@ source "https://rubygems.org"
 
 gem "rubyXL", "3.1.2"
 
-gemspec :path => "../"
+gemspec path: "../"
