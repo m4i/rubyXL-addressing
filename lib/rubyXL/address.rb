@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-require 'rubyXL/objects/reference'
+require 'rubyXL'
+begin
+  # >= rubyXL 3.4.0
+  require 'rubyXL/convenience_methods/cell'
+rescue LoadError
+end
 
 module RubyXL
   class Address
