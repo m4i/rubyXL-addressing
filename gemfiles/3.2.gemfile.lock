@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    rubyXL-addressing (0.4.0)
+    rubyXL-addressing (0.5.0)
       rubyXL (>= 3)
 
 GEM
