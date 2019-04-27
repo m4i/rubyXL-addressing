@@ -6,7 +6,6 @@ Addressing for [rubyXL](https://github.com/weshatheleopard/rubyXL)
 [![Build Status](https://travis-ci.org/m4i/rubyXL-addressing.svg?branch=master)](https://travis-ci.org/m4i/rubyXL-addressing)
 [![Test Coverage](https://codeclimate.com/github/m4i/rubyXL-addressing/badges/coverage.svg)](https://codeclimate.com/github/m4i/rubyXL-addressing/coverage)
 [![Code Climate](https://codeclimate.com/github/m4i/rubyXL-addressing/badges/gpa.svg)](https://codeclimate.com/github/m4i/rubyXL-addressing)
-[![Dependency Status](https://gemnasium.com/m4i/rubyXL-addressing.svg)](https://gemnasium.com/m4i/rubyXL-addressing)
 
 ## Installation
 
